@@ -1,26 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
-
-double fatorial(double num);
+#include "fatorialR.h"
 
 int main()
 {
     double num;
     printf("Digite um numero: ");
     scanf("%lf", &num);
-    printf("!%.0lf = %lf", num, fatorial(num));
+    printf("!%.0lf = %lf", num, fatorialR(num));
     return 0;
 }
 
-double fatorial(double num)
-{
-    if (num>1)
-    {
-        num *= fatorial(num -1);
-        return num;  
-    }
-    else
-    {
-        return 1;   
-    }    
-}
