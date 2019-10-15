@@ -1,14 +1,14 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-struct Person{
+typedef struct{
         char name[20];
         int old;
         char gender[10];
         float weight;
         float height;
         float imc;
-};
+} Person;
 int main()
 {
     const int quant;
@@ -17,7 +17,7 @@ int main()
     printf("Digite a quantidade de Pessoas: ");
     scanf("%d", &quant);
     
-    struct Person* person = malloc(sizeof(struct Person)*quant);
+    Person* person = malloc(sizeof(Person)*quant);
     for (i = 0; i < quant; i++)
     {
         printf("\nDigite o nome da pessoa %d: ",i);

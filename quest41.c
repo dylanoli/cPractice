@@ -1,11 +1,12 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <time.h>
-void rangeLoop(int numStart, int numEnd);
-void rangeRecursion(int numStart, int numEnd);
+int rangeLoop(int numStart, int numEnd);
+int rangeRecursion(int numStart, int numEnd, int sum);
 int main()
 {
     int numStart, numEnd;
+    int sumLoop = 0, sumRecursion = 0;
     printf("Digite o valor inicial: ");
     scanf("%d", &numStart);
     
@@ -14,36 +15,43 @@ int main()
 
 
     clock_t begin = clock();
-    rangeLoop(numStart, numEnd);
+    sumLoop = rangeLoop(numStart, numEnd);
     clock_t end = clock();
     double time_spent = (double)(end - begin) / CLOCKS_PER_SEC;
-    printf("\ntime: %f\n\n",time_spent);
 
     
     clock_t begin1 = clock();
-    rangeRecursion(numStart, numEnd);
+    sumRecursion = rangeRecursion(numStart, numEnd, sumRecursion);
     clock_t end1 = clock();
     double time_spent1 = (double)(end1 - begin1) / CLOCKS_PER_SEC;
-    printf("\ntime: %f\n",time_spent1);
+    
+    printf("\nsum for loop: %d\n",sumLoop);
+    printf("time for loop: %f\n",time_spent);
+    printf("\nsum for recursion: %d\n",sumRecursion);
+    printf("time for recursion: %f\n",time_spent1);
    
     return 0;
 }
 
-void rangeLoop(int numStart, int numEnd)
+int rangeLoop(int numStart, int numEnd)
 {
     int i;
+    int sum = 0;
     for (i = numStart; i <= numEnd; i++)
     {
-        printf("[%d]",i);
+        sum += i;
     }
+    return sum;
 }
-void rangeRecursion(int numStart, int numEnd)
+int rangeRecursion(int numStart, int numEnd, int sum)
 {
     int i = numStart;
     if (i <= numEnd)
     {
-        printf("[%d]",i);
+        sum += i;
         i++;
-        rangeRecursion(i, numEnd);
+        return rangeRecursion(i, numEnd, sum);
     }
+    else
+        return sum;
 }
