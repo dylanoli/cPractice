@@ -27,7 +27,7 @@ int main()
     strcpy(dado[0].nome,"Dylan");
     dado[0].valor=19;
 
-    strcpy(dado[1].nome,"Valdir");
+    strcpy(dado[1].nome,"Mateus");
     dado[1].valor=12;
 
     strcpy(dado[2].nome,"Joao");
