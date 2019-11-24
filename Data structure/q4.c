@@ -20,8 +20,8 @@ void adicionarFim(Lista ** lista, Dado dado);
 void remover(Lista ** lista, int id);
 void exibir(Lista ** lista);
 int getId(Lista ** lista);
-Lista * buscarAnterior(Lista ** lista, int id);
-Lista * ultimoElemento(Lista ** lista);
+Lista * buscarAnterior(Lista * lista, int id);
+Lista * ultimoElemento(Lista * lista);
 
 int main()
 {
@@ -38,14 +38,14 @@ int main()
 
     strcpy(dado[3].nome,"Marcos");
     dado[3].valor=30;
-    Lista ** lista = NULL;
+    Lista * lista = NULL;
 
-    adicionarInicio(lista,dado[0]);
-    adicionarInicio(lista,dado[1]);
-    // adicionarFim(lista,dado[2]);
-    adicionarInicio(lista,dado[3]);
-    // remover(lista,1);
-    //exibir(lista);
+    adicionarInicio(&lista,dado[0]);
+    adicionarInicio(&lista,dado[1]);
+    adicionarFim(&lista,dado[2]);
+    adicionarInicio(&lista,dado[3]);
+    remover(&lista,1);
+    exibir(&lista);
 
     return 0;
 }
@@ -55,42 +55,48 @@ void adicionarInicio(Lista ** lista, Dado dado)
     novoElemento->id = getId(lista);
     strcpy(novoElemento->dado.nome, dado.nome);
     novoElemento->dado.valor = dado.valor;
-    if ((*lista) == NULL)
+    if (*lista == NULL)
     {
-        (*lista) = novoElemento;
-        // novoElemento->listaProx = NULL;
-        // printf("AQUI %d -N %d ",lista, &novoElemento);
+        *lista = novoElemento;
+        novoElemento->listaProx = NULL;
     }
-    // else
-    // {
-    //     novoElemento->listaProx = (*lista)->listaProx;
-    //     (*lista)->listaProx = novoElemento;
-    // }  
+    else
+    {
+        novoElemento->listaProx = (*lista);
+        (*lista) = novoElemento;
+    }  
 }
-// void adicionarFim(Lista * lista, Dado dado)
-// {
-//     Lista * novoElemento = (Lista*)calloc(1,sizeof(Lista));
-//     novoElemento->id = lista->id;
-//     strcpy(novoElemento->dado.nome, dado.nome);
-//     novoElemento->dado.valor = dado.valor;
-//     novoElemento->listaProx = NULL;
-
-//     Lista * ultimoElem = ultimoElemento(lista);
-//     ultimoElem->listaProx = novoElemento;
-//     lista->id++;
-// }
-// void remover(Lista * lista, int id)
-// {
-//     Lista * elemantoAnterior = buscarAnterior(lista, id);
-//     Lista * elemento = elemantoAnterior->listaProx;
-//     elemantoAnterior->listaProx = elemento->listaProx;
-//     elemento->listaProx=NULL;
-//     free(elemento);
-// }
+void adicionarFim(Lista ** lista, Dado dado)
+{
+    Lista * novoElemento = (Lista*)calloc(1,sizeof(Lista));
+    novoElemento->id = getId(lista);
+    strcpy(novoElemento->dado.nome, dado.nome);
+    novoElemento->dado.valor = dado.valor;
+    novoElemento->listaProx = NULL;
+    Lista * ultimoElem = ultimoElemento(*lista);
+    ultimoElem->listaProx = novoElemento;
+}
+void remover(Lista ** lista, int id)
+{
+    Lista * elemantoAnterior = buscarAnterior(*lista, id);
+    Lista * elemento;
+    if (elemantoAnterior != NULL)
+    {
+        elemento = elemantoAnterior->listaProx;
+        elemantoAnterior->listaProx = elemento->listaProx;
+    }
+    else
+    {
+        elemento = *lista;
+        lista = &((*lista)->listaProx);
+    }
+    elemento->listaProx=NULL;
+    free(elemento);
+}
 
 int getId(Lista ** lista)
 {
-    if (lista == NULL)
+    if (*lista == NULL)
     {
         return 1;
     }
@@ -109,36 +115,40 @@ int getId(Lista ** lista)
     
 }
 
-// Lista * buscarAnterior(Lista * lista, int id)
-// {
-//     Lista * listaRef = lista;
-//     while (listaRef->listaProx->id != id && listaRef != NULL)
-//     {
-//         listaRef = listaRef->listaProx;
-//     } 
-//     if (listaRef->listaProx->id != id)
-//     {
-//         printf("Lista vazia");
-//     }
-//     return listaRef;
-// }
-// Lista * ultimoElemento(Lista * lista)
-// {
-//     Lista * listaRef = lista->listaProx;
-//     if (listaRef->listaProx == NULL)
-//     {
-//         printf("\nLista vazia");
-//     }
+Lista * buscarAnterior(Lista * lista, int id)
+{
+    if (lista->id == id)
+    {
+        return NULL;
+    }
     
-//     while (listaRef->listaProx != NULL)
-//     {
-//         listaRef = listaRef->listaProx;
-//     }
-//     return listaRef;
-// }
+    Lista * listaRef = lista;
+    while (listaRef->listaProx->id != id && listaRef != NULL)
+    {
+        listaRef = listaRef->listaProx;
+    } 
+    if (listaRef->listaProx->id != id)
+    {
+        printf("Lista vazia");
+    }
+    return listaRef;
+}
+Lista * ultimoElemento(Lista * lista)
+{
+    Lista * listaRef = lista->listaProx;
+    if (listaRef->listaProx == NULL)
+    {
+        printf("\nLista vazia");
+    }
+    
+    while (listaRef->listaProx != NULL)
+    {
+        listaRef = listaRef->listaProx;
+    }
+    return listaRef;
+}
 void exibir(Lista ** lista)
 {
-    
     if (lista == NULL)
     {
         printf("\nLista vazia");
@@ -156,9 +166,5 @@ void exibir(Lista ** lista)
             printf("\n");
             listaRef = listaRef->listaProx;
         }
-    }
-    
-    
-    
-    
+    } 
 }
