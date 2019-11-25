@@ -17,9 +17,8 @@ typedef struct tLista
 }Lista;
 
 Lista inicializarLista();
-void adicionarInicio(Lista * lista, Dado dado);
 void adicionarFim(Lista * lista, Dado dado);
-void remover(Lista * lista, int id);
+void removerFim(Lista * lista);
 void exibir(Lista lista);
 Lista * buscar(Lista * lista, int id);
 int main()
@@ -39,11 +38,15 @@ int main()
     dado[3].valor=30;
     Lista lista = inicializarLista();
 
-    adicionarInicio(&lista,dado[0]);
-    adicionarInicio(&lista,dado[1]);
+    
+    adicionarFim(&lista,dado[1]);
     adicionarFim(&lista,dado[2]);
-    adicionarInicio(&lista,dado[3]); 
-    remover(&lista,1);
+    adicionarFim(&lista,dado[3]); 
+    removerFim(&lista);
+    removerFim(&lista);
+    removerFim(&lista);
+    removerFim(&lista);
+    adicionarFim(&lista,dado[0]); 
     exibir(lista);
 
     return 0;
@@ -57,30 +60,6 @@ Lista inicializarLista()
     lista.listaAnte = NULL;
     return lista;
 }
-void adicionarInicio(Lista * lista, Dado dado)
-{
-    Lista * novoElemento = (Lista*)calloc(1,sizeof(Lista));
-    novoElemento->id = lista->id;
-    strcpy(novoElemento->dado.nome, dado.nome);
-    novoElemento->dado.valor = dado.valor;
-
-    novoElemento->listaProx = lista->listaProx;
-    novoElemento->listaAnte = lista;
-    lista->listaProx = novoElemento;
-    
-    
-    if (lista->id==1)
-    {
-        lista->listaAnte=novoElemento;
-    }
-    else
-    {
-        novoElemento->listaProx->listaAnte = lista->listaProx;
-    }
-    
-    lista->id++;
-
-}
 void adicionarFim(Lista * lista, Dado dado)
 {
     Lista * novoElemento = (Lista*)calloc(1,sizeof(Lista));
@@ -93,7 +72,6 @@ void adicionarFim(Lista * lista, Dado dado)
     Lista * ultimoElem = lista->listaAnte;
     if (ultimoElem==NULL)
     {
-        lista->listaAnte = ultimoElem;
         lista->listaProx = novoElemento;
     }
     else
@@ -104,20 +82,28 @@ void adicionarFim(Lista * lista, Dado dado)
     lista->listaAnte = novoElemento;
     lista->id++;
 }
-void remover(Lista * lista, int id)
+void removerFim(Lista * lista)
 {
-    Lista * elemento = buscar(lista, id);
-    Lista * elementoAnte = elemento->listaAnte;
-    Lista * elementoProx = elemento->listaProx;
-    elementoAnte->listaProx = elemento->listaProx;
-    elementoProx->listaAnte = elemento->listaAnte;
-    elemento->listaProx=NULL;
-    elemento->listaAnte=NULL;
-    if (lista->listaAnte = elemento)
+    if (lista->listaProx != NULL)
     {
-        lista->listaAnte = elementoAnte;
+        Lista * elemento = lista->listaAnte;
+        if (elemento->listaAnte!= NULL)
+        {
+            Lista * elementoAnte = elemento->listaAnte;
+            elementoAnte->listaProx = NULL;
+            lista->listaAnte = elementoAnte;
+        }
+        else
+        {
+            lista->listaAnte=NULL;
+            lista->listaProx=NULL;
+        }
+        
+        elemento->listaProx=NULL;
+        elemento->listaAnte=NULL;
+        free(elemento);
     }
-    free(elemento);
+    
 }
 
 Lista * buscar(Lista * lista, int id)
