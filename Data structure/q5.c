@@ -39,11 +39,11 @@ int main()
     dado[3].valor=30;
     Lista lista = inicializarLista();
 
-    adicionarInicio(&lista,dado[0]);
-    adicionarInicio(&lista,dado[1]);
+    // adicionarInicio(&lista,dado[0]);
+    // adicionarInicio(&lista,dado[1]);
     adicionarFim(&lista,dado[2]);
     adicionarInicio(&lista,dado[3]); 
-    remover(&lista,1);
+    remover(&lista,3);
     exibir(lista);
 
     return 0;
@@ -107,31 +107,49 @@ void adicionarFim(Lista * lista, Dado dado)
 void remover(Lista * lista, int id)
 {
     Lista * elemento = buscar(lista, id);
-    Lista * elementoAnte = elemento->listaAnte;
-    Lista * elementoProx = elemento->listaProx;
-    elementoAnte->listaProx = elemento->listaProx;
-    elementoProx->listaAnte = elemento->listaAnte;
-    elemento->listaProx=NULL;
-    elemento->listaAnte=NULL;
-    if (lista->listaAnte = elemento)
+    if(elemento != NULL)
     {
-        lista->listaAnte = elementoAnte;
+        Lista * elementoAnte = elemento->listaAnte;
+        Lista * elementoProx = elemento->listaProx;
+
+        elementoAnte->listaProx = elemento->listaProx;
+        if (lista->listaAnte == elemento)
+        {
+            lista->listaAnte = elementoAnte;
+        }
+        else
+        {
+            elementoProx->listaAnte = elemento->listaAnte;
+        }
+        elemento->listaProx=NULL;
+        elemento->listaAnte=NULL;
+        free(elemento);
     }
-    free(elemento);
 }
 
 Lista * buscar(Lista * lista, int id)
 {
-    Lista * listaRef = lista;
-    while (listaRef->id != id && listaRef != NULL)
+    if(lista->listaProx != NULL)
     {
-        listaRef = listaRef->listaProx;
-    } 
-    if (listaRef->id != id)
-    {
-        printf("Lista vazia");
+        Lista * listaRef = lista->listaProx;
+        while (listaRef != NULL && listaRef->id != id)
+        {
+            listaRef = listaRef->listaProx;
+        }
+        if (listaRef == NULL)
+        {
+            return NULL;
+        }
+        else
+        {
+            return listaRef;
+        }
     }
-    return listaRef;
+    else
+    {
+        return NULL;
+    }
+    
 }
 
 void exibir(Lista lista)
