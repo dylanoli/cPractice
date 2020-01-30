@@ -3,7 +3,7 @@
 #include<string.h>
 #include"element.h"
 Element addElement(char nome[]);
-int linearSearch(int key, Element vetElem[], int vetLength);
+Element binarySearch(int key, Element vetElem[], int vetLength);
 int idReference = 0;
 
 int main() {
@@ -14,14 +14,15 @@ int main() {
     elements[3] = addElement("Jose");
     elements[4] = addElement("Mateus");
 
-    int key, result;
+    int key;
+    Element result;
     printf("Digite um ID: ");
     scanf("%i",&key);
-    result = linearSearch(key,elements,5);
+    result = binarySearch(key,elements,5);
 
-    if (result > -1)
+    if (result.id > -1)
     {
-        printf("Elemento encontrado: %i", result);
+        printf("Elemento encontrado: %s", result.name);
     }
     else
     {
@@ -37,15 +38,28 @@ Element addElement(char name[])
     return newElement;
 }
 
-int linearSearch(int key, Element vetElem[], int vetLength)
+Element binarySearch(int key, Element vetElem[], int vetLength)
 {
-    int result = -1;
-    for (int i = 0; i < vetLength-1; i++)
+    Element result;
+    result.id = -1;
+    int start = 0;
+    int end = vetLength-1;
+    while (start <= end)
     {
-        if (vetElem[i].id == key)
+        int middle = (end + start)/2;
+        if (key > vetElem[middle].id)
         {
-            result = i;
+            start = middle+1;
         }
+        else if(key == vetElem[middle].id)
+        {
+            result = vetElem[middle];
+            break;
+        }
+        else
+        {
+            end = middle;
+        } 
     }
     return result;
 }

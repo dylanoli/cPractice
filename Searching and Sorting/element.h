@@ -1,5 +1,5 @@
 typedef struct
 {
     int id;
-    char nome [20];
+    char name [20];
 } Element;
