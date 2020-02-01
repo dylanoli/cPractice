@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include "arrayHandle.c"
 #define SIZE 20
-void shellSort(int * vetSort);
+void shellSort(Element * vetSort);
 int main()
 {
-    int vet [SIZE];
-    int vetSort[SIZE];
+    Element vet [SIZE];
+    Element vetSort[SIZE];
 
     vetorGenerate(SIZE,vet); //gerando numeros aleatorios para o vetor
     arrayCopy(SIZE,vet,vetSort); //fazendo uma copia do vetor gerado
@@ -17,7 +17,7 @@ int main()
     showVetor(SIZE,vetSort);
 }
 
-void shellSort(int * vetSort)
+void shellSort(Element * vetSort)
 {
     int h;
     while (h < SIZE)
@@ -29,10 +29,10 @@ void shellSort(int * vetSort)
         h = h/3;
         for (int i = h; i < SIZE; i++)
         {
-            int pivot = vetSort[i];
+            Element pivot = vetSort[i];
             int j = i-h;
 
-            while ((j >= 0) && (pivot < vetSort[j]))
+            while ((j >= 0) && (pivot.id < vetSort[j].id))
             {
                 vetSort[j + h] = vetSort[j];
                 j = j-h;
@@ -40,6 +40,5 @@ void shellSort(int * vetSort)
             vetSort[j+h] = pivot;
         }
            
-    }
-    
+    }  
 }

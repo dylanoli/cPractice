@@ -29,10 +29,10 @@ int main() {
     addElement(elements,"Felipe");
     addElement(elements,"Jose");
     addElement(elements,"Mateus");
-    // show(elements);
+    show(elements);
     char key[50];
     Element result;
-    printf("Digite um ID: ");
+    printf("Digite um nome: ");
     scanf("%s",key);
     result = tableSearch(key,elements);
 

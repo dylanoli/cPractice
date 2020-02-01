@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include "arrayHandle.c"
 #define SIZE 20
-void quickSort(int * vetSort, int start, int end);
+void quickSort(Element * vetSort, int start, int end);
 int main()
 {
-    int vet [SIZE];
-    int vetSort[SIZE];
+    Element vet [SIZE];
+    Element vetSort[SIZE];
 
     vetorGenerate(SIZE,vet); //gerando numeros aleatorios para o vetor
     arrayCopy(SIZE,vet,vetSort); //fazendo uma copia do vetor gerado
@@ -17,24 +17,24 @@ int main()
     showVetor(SIZE,vetSort);
 }
 
-void quickSort(int * vetSort, int start, int end)
+void quickSort(Element * vetSort, int start, int end)
 {
     int i = start;
     int j = end;
-    int pivot = vetSort[(start + end)/2];
+    Element pivot = vetSort[(start + end)/2];
     while (i<j)
     {
-        while (vetSort[i] < pivot)
+        while (vetSort[i].id < pivot.id)
         {
             i++;
         }
-        while (vetSort[j] > pivot)  
+        while (vetSort[j].id > pivot.id)  
         {
             j--;
         }
         if (i <= j)
         {
-            int temp = vetSort[i];
+            Element temp = vetSort[i];
             vetSort[i] = vetSort[j];
             vetSort[j] = temp;
             i++;
@@ -48,6 +48,5 @@ void quickSort(int * vetSort, int start, int end)
         {
             quickSort(vetSort,i,end);
         }   
-    }
-            
+    }          
 }

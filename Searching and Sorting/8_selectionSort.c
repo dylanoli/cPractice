@@ -2,11 +2,11 @@
 #include <stdio.h>
 #include "arrayHandle.c"
 #define SIZE 20
-void selection(int * vetSort);
+void selection(Element * vetSort);
 int main()
 {
-    int vet [SIZE];
-    int vetSort[SIZE];
+    Element vet [SIZE];
+    Element vetSort[SIZE];
 
     vetorGenerate(SIZE,vet); //gerando numeros aleatorios para o vetor
     arrayCopy(SIZE,vet,vetSort); //fazendo uma copia do vetor gerado
@@ -17,14 +17,14 @@ int main()
     showVetor(SIZE,vetSort);
 }
 
-void selection(int * vetSort)
+void selection(Element * vetSort)
 {
     for (int i = 0; i < SIZE; i++)
     {
         int small = i;
         for (int j = i+1; j < SIZE; j++)
         {
-            if (vetSort[j] < vetSort[small])
+            if (vetSort[j].id < vetSort[small].id)
             {
                 small = j;
             }
@@ -32,7 +32,7 @@ void selection(int * vetSort)
         }
         if (i != small)
         {
-            int temp = vetSort[i];
+            Element temp = vetSort[i];
             vetSort[i] = vetSort[small];
             vetSort[small] = temp;
         }
