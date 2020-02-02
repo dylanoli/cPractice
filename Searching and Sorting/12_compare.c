@@ -2,12 +2,12 @@
 #include <stdio.h>
 #include <time.h>
 #include "arrayHandle.c"
-#define SIZE 5000
+#define SIZE 50000
 void bubble(Element * vetSort);
 void Insertion(Element * vetSort);
 void selection(Element * vetSort);
 void shellSort(Element * vetSort);
-void quickSort(Element * vetSort, int start, int end);
+void quickSort(Element vetSort[], int start, int end);
 int main()
 {
     Element vet [SIZE];
@@ -61,35 +61,37 @@ int main()
 
 void quickSort(Element * vetSort, int start, int end)
 {
-    int i = start;
-    int j = end;
-    int pivot = vetSort[(start + end)/2].id;
-    while (i<j)
+    int i, j;
+    Element pivot, temp;
+    i = start;
+    j = end-1;
+    pivot = vetSort[(start + end)/2];
+    while (i <= j)
     {
-        while (vetSort[i].id < pivot)
+        while (vetSort[i].id < pivot.id && i < end)
         {
             i++;
         }
-        while (vetSort[j].id > pivot)  
+        while (vetSort[j].id > pivot.id && j > start)  
         {
             j--;
         }
         if (i <= j)
         {
-            Element temp = vetSort[i];
+            temp = vetSort[i];
             vetSort[i] = vetSort[j];
             vetSort[j] = temp;
             i++;
             j--;
         }
-        if (j > start)
-        {
-            quickSort(vetSort,start,j);
-        }
-        if (i < end)
-        {
-            quickSort(vetSort,i,end);
-        }   
+    }
+    if (j > start)
+    {
+        quickSort(vetSort,start,j+1);
+    }
+    if (i < end)
+    {
+        quickSort(vetSort,i,end);  
     }          
 }
 

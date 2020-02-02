@@ -8,7 +8,8 @@ void showVetor(int lines, Element* vet);
 void vetorGenerate(int lines, Element* vet);
 
 void arrayCopy(int lines, Element * src,Element * target);
-
+void vetorGenerateInt(int lines, int* vet);
+void arrayCopyInt(int lines, int * src,int * target);
 void showVetor(int lines, Element* vet)
 {
     int i;
@@ -33,6 +34,16 @@ void vetorGenerate(int lines, Element* vet)
         vet[i].name[6]='\0';        
     }
 }
+
+void vetorGenerateInt(int lines, int* vet)
+{
+    int i;
+    srand(time(NULL));
+    for ( i = 0; i < lines; i++)
+    {
+        vet[i] = rand()%(lines);       
+    }
+}
 void arrayCopy(int lines, Element * src,Element * target)
 {
     int i;
@@ -40,6 +51,15 @@ void arrayCopy(int lines, Element * src,Element * target)
     {
         target[i].id = src[i].id;
         strcpy(target[i].name,src[i].name);
+    }
+}
+
+void arrayCopyInt(int lines, int * src,int * target)
+{
+    int i;
+    for (i = 0; i < lines; i++)
+    {
+        target[i] = src[i];
     }
 }
 
