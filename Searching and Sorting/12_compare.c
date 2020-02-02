@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <time.h>
 #include "arrayHandle.c"
-#define SIZE 50000
+#define SIZE 20000
 void bubble(Element * vetSort);
 void Insertion(Element * vetSort);
 void selection(Element * vetSort);
@@ -154,7 +154,7 @@ void selection(Element * vetSort)
 
 void shellSort(Element * vetSort)
 {
-    int h;
+    int h = 0;
     while (h < SIZE)
     {
         h = 3*h+1;

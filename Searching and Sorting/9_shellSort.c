@@ -19,7 +19,7 @@ int main()
 
 void shellSort(Element * vetSort)
 {
-    int h;
+    int h = 0;
     while (h < SIZE)
     {
         h = 3*h+1;

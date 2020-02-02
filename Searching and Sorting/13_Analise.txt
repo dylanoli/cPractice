@@ -1,0 +1,35 @@
+Busca linear:
+    Complexidade O(n) com facil implementação.
+
+Busca binária:
+    Complexidade O(Log n) com implementação mais complexa em relação a busca linear.
+
+Tabela hash:
+    Complexidade no melhor caso (sem colisões) de O(1), no pior caso O(n), implementação
+mais complexa em relação a busca linear.  
+ 
+Bubble sort:  
+    o algorítimo bubble sort tem comprexidade de O(n^2) do pior caso e O(n) no melhor
+caso, sendo assim não é o mais indicado quando há uma preocupação com o tempo de
+ordenação, toda via o algoritimo não necessita de saltos em seu vetor, o que pode
+ser vantajoso para usar em listas encadeadas.
+
+Insertion sort
+    o algoritimo insertion sort tem comprexidade de O(n^2) do pior caso e O(n) no melhor
+caso, ele consegue ser mais rápidos que o bubble sort em médios casos e ainda pode ser util
+para listas duplamente encadeadas, um vez que so precisa olhar para o elemento posterior
+e anterior.
+
+Selection sort
+    o algoritimo selection sort tem comprexidade de O(n^2) em todos casos,tem fácil 
+implementação e tempo de resposta semelhante ao insertion sort.
+
+Shell sort
+    um dos mais rapidos algoritimos de ordenação, é baseado no insertion sort com comprexidade
+O(n Log n), não recomendado para listas encadeadas, pois necessita de saltos de acordo com o
+valor do gap.
+
+Quick sort
+    um dos mais rapidos algoritimos de ordenação, complexidade de O(n Log n) no melhor caso
+e O(n^2) no pior caso, não recomendado para listas encadeadas, pois necessita de saltos
+em seu vetor.
